@@ -69,5 +69,5 @@ docker compose down
 
 ## Support
 
-[Hytale Server Manual](https://support.hytale.com/hc/en-us/articles/45326769420827-Hytale-Server-Manual)
+[Hytale Server Manual](https://support.hytale.com/hc/en-us/articles/45326769420827-Hytale-Server-Manual)  
 [Issues](https://github.com/IBMESP/hytale-server/issues)
