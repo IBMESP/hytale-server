@@ -1,12 +1,29 @@
 #!/bin/bash
 set -e
 
+echo "Hytale Docker Entrypoint"
+
+MACHINE_ID_DIR="$SERVER_FILES/.machine-id"
+mkdir -p "$MACHINE_ID_DIR"
+
+if [ ! -f "$MACHINE_ID_DIR/uuid" ]; then
+    echo "Generating persistent machine-id for encrypted auth..."
+
+    MACHINE_UUID=$(cat /proc/sys/kernel/random/uuid)
+    MACHINE_UUID_NO_DASH=$(echo "$MACHINE_UUID" | tr -d '-' | tr '[:upper:]' '[:lower:]')
+    
+    echo "$MACHINE_UUID_NO_DASH" > "$MACHINE_ID_DIR/machine-id"
+    echo "$MACHINE_UUID_NO_DASH" > "$MACHINE_ID_DIR/dbus-machine-id"
+    echo "$MACHINE_UUID" > "$MACHINE_ID_DIR/product_uuid"
+    echo "$MACHINE_UUID" > "$MACHINE_ID_DIR/uuid"
+    
+    chown -R 1001:1001 "$MACHINE_ID_DIR"
+fi
+
 DATA=/hytale-server
 SERVER_DIR="$DATA/Server"
 ASSETS="$DATA/Assets.zip"
 CREDS="$DATA/.hytale-downloader-credentials.json"
-
-echo "Hytale Docker Entrypoint"
 
 needs_download=0
 

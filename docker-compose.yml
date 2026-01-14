@@ -9,7 +9,3 @@ services:
       - 5520:5520/udp
     stdin_open: true
     tty: true
-    # Used for /auth persistence Encrypted
-    privileged: false
-    cap_add:
-      - SYS_ADMIN
